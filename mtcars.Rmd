@@ -1,0 +1,28 @@
+---
+title: "Plotting with Plotly"
+author: "Omar Ali Fdal"
+date: "27 October 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+library(ggplot2)
+library(plotly)
+```
+
+
+
+```{r qsec, echo=TRUE}
+data(mtcars)
+mtcars$am <- factor(mtcars$am, levels = c(0, 1),
+                    labels = c("automatic", "manual"))
+str(mtcars)
+
+plt <- ggplot(data=mtcars, mapping=aes(y=mpg, x=qsec, shape=am, size=wt, color=hp)) +
+  geom_point(alpha=0.5) +
+  geom_smooth(method="lm") + 
+  scale_color_gradient(low="lightBlue", high="darkBlue")
+
+ggplotly(plt)
+```
